@@ -76,3 +76,48 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
 | 8 | Painel do admin            | Admin                      |
 
 ---
+## 🚀 Instalação e Configuração
+
+### Requisitos
+
+- PHP 8+
+- Servidor web (Apache ou Nginx) ou PHP built-in server
+- MySQL / MariaDB *(Trabalho 2)*
+
+### Como rodar localmente
+
+```bash
+# Clone o repositório
+git clone https://github.com/Matszin/Projeto_WebServidor.git
+
+# Acesse a pasta do projeto
+cd Projeto_WebServidor
+
+# Inicie o servidor embutido do PHP
+php -S localhost:8000 -t public/
+```
+
+> Acesse `http://localhost:8000` no navegador.
+
+### Configuração
+
+- Copie o arquivo `config/database.example.php` para `config/database.php`
+- Preencha as credenciais do banco de dados *(necessário a partir do Trabalho 2)*
+
+---
+
+## 📊 Status do Desenvolvimento
+
+| Tela / Funcionalidade |  Status |
+|-----------------------|--------|
+| Login e Cadastro |  🔲 Pendente |
+| Perfil do participante | 🔲 Pendente |
+| Home / Listagem de eventos | 🔲 Pendente |
+| Página do evento + inscrição  🔲 Pendente |
+| Criar / Editar evento  | 🔲 Pendente |
+| Painel do organizador | 🔲 Pendente |
+| Painel do admin  | 🔲 Pendente |
+| Autenticação e sessão (PHP) | 🔲 Pendente |
+| Estrutura MVC base  | 🔲 Pendente |
+
+> Legenda: 🔲 Pendente · 🟡 Em andamento · ✅ Concluído
