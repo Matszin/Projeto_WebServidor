@@ -1,3 +1,78 @@
 # Projeto_WebServidor
 Projeto desenvolvido para matéria de web servidor
 
+# 🗓️ EventHub — Plataforma de Gestão de Eventos
+
+![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?style=flat&logo=php&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=flat&logo=bootstrap&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-yellow?style=flat)
+
+> Plataforma web para criação e gerenciamento de eventos de qualquer natureza — corporativos, acadêmicos, culturais, esportivos e mais.
+
+---
+
+## 👥 Integrantes
+
+| Nome                        | Responsabilidades |
+|-----------------------------|-------------------|
+
+| **Mateus Nogari Teixeira**  | Ainda não definido
+
+| **Vitor de Anhaia Polski**  | Ainda não definido
+
+---
+
+## 📌 Sobre o Projeto
+
+O **EventHub** é uma aplicação web desenvolvida como projeto prático da disciplina de Servidor Web, utilizando PHP 8+ sem frameworks, seguindo o padrão MVC.
+
+A plataforma permite que qualquer usuário crie eventos e gerencie inscrições, ou que se inscreva em eventos criados por outros. O sistema conta com dois perfis de acesso — **Admin** e **Participante** — sendo que o participante pode assumir o papel de organizador ao criar um evento, e pode ser promovido a palestrante dentro de um evento específico mediante aprovação do organizador.
+
+---
+
+## ✅ Funcionalidades
+
+- Autenticação com dois níveis de acesso: Admin e Participante
+- Cadastro e edição de perfil (foto, bio, área de atuação, links)
+- Criação e gerenciamento de eventos de qualquer tipo
+- Listagem de eventos com filtros por nome, tipo e data
+- Inscrição em eventos (reserva ou compra de ingresso)
+- Requisição para ser palestrante em um evento, com aprovação/rejeição pelo organizador
+- Painel do organizador: lista de inscritos e gerenciamento de requisições
+- Painel do admin: visão geral de todos os usuários e eventos da plataforma
+
+---
+
+## 🗂️ Estrutura de Pastas
+
+```
+/eventhub
+  /app
+    /controllers    → EventController, UserController, SubscriptionController
+    /models         → Event, User, Subscription
+    /views
+      /auth         → login.php, register.php
+      /events       → index.php, create.php, edit.php, show.php
+      /users        → profile.php, edit.php
+      /subscriptions→ create.php
+      /admin        → index.php
+  /config           → database.php
+  /public           → index.php  (front controller — ponto de entrada único)
+```
+
+---
+
+## 🖥️ Telas do Sistema
+
+| # | Tela                       | Quem acessa                |
+|---|----------------------------|----------------------------|
+| 1 | Login                      | Todos                      |
+| 2 | Cadastro de conta          | Público                    |
+| 3 | Perfil do participante     | Participante               |
+| 4 | Home / Listagem de eventos | Todos                      |
+| 5 | Página do evento           | Todos                      |
+| 6 | Criar / Editar evento      | Participante (organizador) |
+| 7 | Painel do organizador      | Participante (organizador) |
+| 8 | Painel do admin            | Admin                      |
+
+---
