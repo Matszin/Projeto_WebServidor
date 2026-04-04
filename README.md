@@ -41,7 +41,7 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
 - Painel do organizador: lista de inscritos e gerenciamento de requisições
 - Painel do admin: visão geral de todos os usuários e eventos da plataforma
 
----
+```
 
 🗂️ Estrutura de Pastas *até o momento*
 /eventhub
@@ -55,7 +55,7 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
       /js
         main.js
 
----
+```
 
 ## 🖥️ Telas do Sistema
 
