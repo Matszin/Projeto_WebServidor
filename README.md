@@ -43,22 +43,17 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
 
 ---
 
-## 🗂️ Estrutura de Pastas
-
-```
+🗂️ Estrutura de Pastas *até o momento*
 /eventhub
   /app
-    /controllers    → EventController, UserController, SubscriptionController
-    /models         → Event, User, Subscription
-    /views
-      /auth         → login.php, register.php
-      /events       → index.php, create.php, edit.php, show.php
-      /users        → profile.php, edit.php
-      /subscriptions→ create.php
-      /admin        → index.php
-  /config           → database.php
-  /public           → index.php  (front controller — ponto de entrada único)
-```
+  /config  
+  /public         
+    index.php
+    /assets
+      /css
+        style.css
+      /js
+        main.js
 
 ---
 
