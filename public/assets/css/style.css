@@ -1,6 +1,17 @@
 /*Teste basico*/
+*{
+    padding: 0%;
+    margin: 0%;
+}
 body {
-    background-color: #f2f2f2;
-    color: rgba(18, 70, 160, 0.638);
+    background-color: #ffffff;
+    color: rgba(0, 0, 0, 0.638);
     font-family: Arial;
+}
+
+footer{
+    background: #8d6f04;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
 }

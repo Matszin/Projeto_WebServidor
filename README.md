@@ -7,7 +7,7 @@ Projeto desenvolvido para matéria de web servidor
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=flat&logo=bootstrap&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-yellow?style=flat)
 
-> Plataforma web para criação e gerenciamento de eventos de qualquer natureza — corporativos, acadêmicos, culturais, esportivos e mais.
+> Plataforma web para criação e gerenciamento de eventos de qualquer natureza — corporativos, acadêmicos, culturais, esportivos, etc.
 
 ---
 
@@ -15,10 +15,12 @@ Projeto desenvolvido para matéria de web servidor
 
 | Nome                        | Responsabilidades |
 |-----------------------------|-------------------|
+| **Ambos**                   |Login e cadastro de conta|
+| **Mateus Nogari Teixeira**  | Criar/editar evento, painel do organizador, painel do admin |
 
-| **Mateus Nogari Teixeira**  | Ainda não definido
+| **Vitor de Anhaia Polski**  | Perfil do participante, home/listagem de eventos, página do evento |
 
-| **Vitor de Anhaia Polski**  | Ainda não definido
+
 
 ---
 
