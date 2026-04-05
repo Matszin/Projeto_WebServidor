@@ -48,6 +48,11 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
 🗂️ Estrutura de Pastas *até o momento*
 /eventhub
   /app
+    /views
+      /partials
+        header.php
+        navbar.php
+        footer.php
   /config  
   /public         
     index.php
