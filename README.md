@@ -115,7 +115,7 @@ php -S localhost:8000 -t public/
 | Login e Cadastro |  🔲 Pendente |
 | Perfil do participante | 🔲 Pendente |
 | Home / Listagem de eventos | 🔲 Pendente |
-| Página do evento + inscrição  🔲 Pendente |
+| Página do evento + inscrição | 🔲 Pendente |
 | Criar / Editar evento  | 🔲 Pendente |
 | Painel do organizador | 🔲 Pendente |
 | Painel do admin  | 🔲 Pendente |
