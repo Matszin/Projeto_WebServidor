@@ -15,9 +15,8 @@ Projeto desenvolvido para matéria de web servidor
 
 | Nome                        | Responsabilidades |
 |-----------------------------|-------------------|
-| **Ambos**                   |Login e cadastro de conta|
 | **Mateus Nogari Teixeira**  | Criar/editar evento, painel do organizador, painel do admin |
-| **Vitor de Anhaia Polski**  | Perfil do participante, home/listagem de eventos, página do evento |
+| **Vitor de Anhaia Polski**  | Login e cadastro de conta, perfil do participante, home/listagem de eventos, página do evento |
 
 
 
@@ -100,25 +99,4 @@ php -S localhost:8000 -t public/
 
 > Acesse `http://localhost:8000` no navegador.
 
-### Configuração
-
-- Copie o arquivo `config/database.example.php` para `config/database.php`
-- Preencha as credenciais do banco de dados *(necessário a partir do Trabalho 2)*
-
 ---
-
-## 📊 Status do Desenvolvimento
-
-| Tela / Funcionalidade |  Status |
-|-----------------------|--------|
-| Login e Cadastro |  🔲 Pendente |
-| Perfil do participante | 🔲 Pendente |
-| Home / Listagem de eventos | 🔲 Pendente |
-| Página do evento + inscrição | 🔲 Pendente |
-| Criar / Editar evento  | 🔲 Pendente |
-| Painel do organizador | 🔲 Pendente |
-| Painel do admin  | 🔲 Pendente |
-| Autenticação e sessão (PHP) | 🔲 Pendente |
-| Estrutura MVC base  | 🔲 Pendente |
-
-> Legenda: 🔲 Pendente · 🟡 Em andamento · ✅ Concluído
