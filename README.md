@@ -17,7 +17,6 @@ Projeto desenvolvido para matéria de web servidor
 |-----------------------------|-------------------|
 | **Ambos**                   |Login e cadastro de conta|
 | **Mateus Nogari Teixeira**  | Criar/editar evento, painel do organizador, painel do admin |
-
 | **Vitor de Anhaia Polski**  | Perfil do participante, home/listagem de eventos, página do evento |
 
 
