@@ -1,24 +1,11 @@
-<body>
-     <a class="navbar-brand" href="/index.php">EventHub</a>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="collapse navbar-collapse" id="menu">
-        <ul class="navbar-nav me-auto">
 
-            <li class="nav-item">
-            <a class="nav-link" href="/index.php">Home</a>
-            </li>
+<div class="sidebar">
+    <h2 class="logo">EventHub</h2>
 
-            <li class="nav-item">
-            <a class="nav-link" href="/eventos.php">Eventos</a>
-            </li>
-
-            <li class="nav-item">
-            <a class="nav-link" href="/meuseventos.php">Meus Eventos</a>
-            </li>
-
-            <li class="nav-item">
-            <a class="nav-link" href="/criarevento.php">Criar Evento</a>
-            </li>
-
-        </ul>
-    </nav>
+    <ul>
+        <li><a href="/index.php">Home</a></li>
+        <li><a href="/eventos.php">Eventos</a></li>
+        <li><a href="/meuseventos.php">Meus Eventos</a></li>
+        <li><a href="/criareventos.php">Criar Evento</a></li>
+    </ul>
+</div>
