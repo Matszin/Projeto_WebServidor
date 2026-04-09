@@ -94,7 +94,8 @@ git clone https://github.com/Matszin/Projeto_WebServidor.git
 cd Projeto_WebServidor
 
 # Inicie o servidor embutido do PHP
-php -S localhost:8000 -t public/
+
+php -S localhost:8000 -t public
 ```
 
 > Acesse `http://localhost:8000` no navegador.

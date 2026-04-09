@@ -1,6 +1,8 @@
 <?php 
     //echo "Event_Hub está funcionando ";
     require_once'../app/views/partials/header.php';
+    require_once'../app/views/partials/navbar.php';
+
     ?>
          <h1>Bem vindo ao Event Hub</h1>
 
