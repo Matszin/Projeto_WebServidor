@@ -4,8 +4,8 @@
 
     <ul>
         <li><a href="/index.php">Home</a></li>
-        <li><a href="/eventos.php">Eventos</a></li>
-        <li><a href="/meuseventos.php">Meus Eventos</a></li>
-        <li><a href="/criareventos.php">Criar Evento</a></li>
+        <li><a href="app/views/events/listar_eventos.php">Eventos</a></li>
+        <li><a href="app/views/events/meus_eventos.php">Meus Eventos</a></li>
+        <li><a href="app/views/events/criar_eventos.php">Criar Evento</a></li>
     </ul>
 </div>
