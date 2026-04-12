@@ -1,11 +1,12 @@
-
 <div class="sidebar">
     <h2 class="logo">EventHub</h2>
-
     <ul>
-        <li><a href="/index.php">Home</a></li>
-        <li><a href="app/views/events/listar_eventos.php">Eventos</a></li>
-        <li><a href="app/views/events/meus_eventos.php">Meus Eventos</a></li>
-        <li><a href="app/views/events/criar_eventos.php">Criar Evento</a></li>
+        <li><a href="/index.php?page=home">Início</a></li>
+        <li><a href="/index.php?page=eventos">Explorar Eventos</a></li>
+        <li><a href="/index.php?page=meus-eventos">Meus Eventos</a></li>
+        <li><a href="/index.php?page=criar-evento">Criar Evento</a></li>        
+        <li><a href="/index.php?page=admin">Painel Admin</a></li>
+        <li><a href="/index.php?page=perfil">Meu Perfil</a></li>
+        <li><a href="/index.php?page=sair">Sair</a></li>
     </ul>
 </div>
