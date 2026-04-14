@@ -1,5 +1,4 @@
 <?php
-// app/models/EventModel.php
 
 class EventModel {
 

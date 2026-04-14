@@ -6,8 +6,8 @@ if (isset($_GET['action']) && $_GET['action'] === 'store') {
     $controller->store();
     exit;
 }
-?>
-<?php require_once __DIR__ . '/../partials/header.php';?>
+
+ require_once __DIR__ . '/../partials/header.php';?>
 
 <div class="layout">
 
@@ -27,7 +27,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'store') {
                         </div>
 
                         <!-- Data e hr-->
-                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="data_evento">Data e Hora</label>
                                 <input type="datetime-local" id="data_evento" name="data_evento" required>

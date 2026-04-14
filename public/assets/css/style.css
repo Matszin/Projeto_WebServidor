@@ -125,7 +125,6 @@ body {
 .form-group input:focus {
     border-color: #38bdf8;
 }
-
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr ;
@@ -194,6 +193,71 @@ body {
     text-decoration: none;
     color: #eab308;
     font-weight: bold;
+}
+
+.btn-back {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #38bdf8;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-back:hover {
+    color: #0ea5e9;
+    transform: translateX(-5px);
+}
+
+.event-details-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    max-width: 900px;
+}
+
+.event-banner {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.event-info-row {
+    display: flex;
+    gap: 30px;
+    margin: 20px 0;
+    padding: 15px 0;
+    border-top: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+    color: #64748b;
+}
+
+.event-description {
+    line-height: 1.8;
+    color: #334155;
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
+
+.btn-subscribe {
+    margin-top: 40px;
+    padding: 15px 40px;
+    background-color: #38bdf8;
+    color: #020617;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-subscribe:hover {
+    background-color: #0ea5e9;
+    transform: scale(1.05);
 }
 
 footer {

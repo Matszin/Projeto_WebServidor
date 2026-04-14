@@ -41,7 +41,7 @@ class EventController {
         $this->model->update($id, $dados_atualizados);
    
         // manda pra lista
-        header("Location: /index.php?page=eventos");
+        header("Location: /index.php?page=home");
         exit;
     }
 }
