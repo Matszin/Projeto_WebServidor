@@ -10,6 +10,9 @@ switch ($page) {
         require_once $base_path . 'events/criar_eventos.php';
         break;
     
+    case 'editar-evento':
+        require_once $base_path .'events/editar_eventos.php';
+        break;
     case 'eventos':
         require_once $base_path . 'events/listar_eventos.php';
         break;
