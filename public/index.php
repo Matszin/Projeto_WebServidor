@@ -1,4 +1,7 @@
 <?php
+session_start(); 
+ini_set('display_errors', 1); 
+error_reporting(E_ALL);
 
 $page = $_GET['page'] ?? 'home';
 
@@ -9,10 +12,11 @@ switch ($page) {
     case 'criar-evento':
         require_once $base_path . 'events/criar_eventos.php';
         break;
-    
-    case 'editar-evento':
-        require_once $base_path .'events/editar_eventos.php';
+        
+        case 'editar-evento':
+        require_once $base_path . 'events/editar_eventos.php';
         break;
+
     case 'eventos':
         require_once $base_path . 'events/listar_eventos.php';
         break;

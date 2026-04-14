@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/../models/EventModel.php'; //importa o model
 
-
 $action = $_GET['action'] ?? ''; //pega qual ação deve ser feita
 
 
@@ -32,7 +31,7 @@ class EventController {
             'local'     => $_POST['local'] ?? '',
             'descricao' => $_POST['descricao'] ?? ''
         ];
-
+    
         // Manda para o model
         $sucesso = $this->model->save($dados);
 
@@ -57,7 +56,7 @@ class EventController {
             'local'     => $_POST['local'] ?? '',
             'descricao' => $_POST['descricao'] ?? ''
         ];
-
+          $sucesso = $this->model->update($id, $dados_atualizados);
    
         error_log("CONTROLLER: Atualizando evento ID $id com dados: " . print_r($dados_atualizados, true));
 

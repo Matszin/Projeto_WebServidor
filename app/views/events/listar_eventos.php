@@ -24,8 +24,12 @@ require_once __DIR__ . '/../partials/header.php';
                         <span style="display: inline-block; background: #38bdf8; color: #020617; padding: 4px 8px; border-radius: 4px; font-size: 12px; margin-top: 10px;">
                             <?= $evento['tipo'] ?>
                         </span>
-                        <div style="margin-top: 15px;">
+                        
+                        <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
                             <a href="#" style="text-decoration: none; color: #38bdf8; font-weight: bold;">Ver detalhes →</a>
+                            
+                            <!--link para página de edição passando o id-->
+                            <a href="/index.php?page=editar-evento&id=<?= $evento['id'] ?>" style="text-decoration: none; color: #eab308; font-weight: bold;">Editar ✏️</a>
                         </div>
                     </div>
                 </div>
