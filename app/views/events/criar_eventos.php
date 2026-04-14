@@ -1,10 +1,10 @@
 <?php
 if (isset($_GET['action']) && $_GET['action'] === 'store') {
-    // Ajuste o caminho para chegar no Controller a partir daqui
+   
     require_once __DIR__ . '/../../controllers/EventController.php';
     $controller = new EventController();
     $controller->store();
-    exit; // Importante para o redirecionamento do Controller funcionar
+    exit;
 }
 ?>
 <?php require_once __DIR__ . '/../partials/header.php';?>
@@ -17,7 +17,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'store') {
                 <h1>Criar Eventos</h1>
                 <p>Crie seus eventos aqui:</p>
                 <div class="content-form">
-                  <!-- O formulário envia para o index, passando a página e a ação na URL -->
+                  <!-- O formulário envia para o index, passando a página e a ação -->
                     <form action="/index.php?page=criar-evento&action=store" method="POST" enctype="multipart/form-data">
 
                         <!--Titulo do formulário-->
@@ -26,7 +26,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'store') {
                             <input type="text" id="titulo" name="titulo" placeholder="Ex:Futebol as 19:00" required>
                         </div>
 
-                        <!-- Linha com data e tipo-->
+                        <!-- Data e hr-->
                         <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                             <div class="form-group">
                                 <label for="data_evento">Data e Hora</label>
@@ -47,7 +47,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'store') {
                             </div>
                         </div>
 
-                        <!-- Local ou Link -->
+                        <!-- Local-->
                         <div class="form-group">
                             <label for="local">Local ou Link (se online)</label>
                             <input type="text" id="local" name="local" placeholder="Ex: Auditório Central ou URL do Meet" required>

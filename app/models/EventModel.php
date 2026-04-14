@@ -4,12 +4,12 @@
 class EventModel {
 
     public function __construct() {
-        // 1. Garante que a sessão está ativa
+        // verifica se a session está ativa
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        // 2. Se a lista de eventos não existir na sessão, cria ela com os dados padrão
+        // define uma lista de eventos base
         if (!isset($_SESSION['eventos_mock'])) {
             $_SESSION['eventos_mock'] = [
                 1 => [
@@ -26,32 +26,32 @@ class EventModel {
         }
     }
 
-    // LISTAR TODOS (Usado no Explorar Eventos)
+    //lista todos os eventos
     public function all() {
         return $_SESSION['eventos_mock'];
     }
 
-    // BUSCAR UM (Usado no Editar Eventos)
+    //busca todos os eventos
     public function find($id) {
         return $_SESSION['eventos_mock'][$id] ?? null;
     }
 
-    // SALVAR NOVO (Usado no Criar Eventos)
+   //salva o evento
     public function save($dados) {
-        // Gera um ID novo baseado no maior ID existente + 1
+        //gera um id 
         $novo_id = count($_SESSION['eventos_mock']) > 0 ? max(array_keys($_SESSION['eventos_mock'])) + 1 : 1;
         
         $dados['id'] = $novo_id;
         
-        // SALVA NA SESSÃO
+        //salva o evento na session
         $_SESSION['eventos_mock'][$novo_id] = $dados;
         return true;
     }
 
-    // ATUALIZAR EXISTENTE (Usado no Editar Eventos)
+    //atualiza o evento
     public function update($id, $dados) {
         if (isset($_SESSION['eventos_mock'][$id])) {
-            $dados['id'] = $id; // Garante que o ID não mude
+            $dados['id'] = $id;
             $_SESSION['eventos_mock'][$id] = array_merge($_SESSION['eventos_mock'][$id], $dados);
             return true;
         }

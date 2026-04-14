@@ -1,29 +1,14 @@
 <?php
-
-require_once __DIR__ . '/../models/EventModel.php'; //importa o model
-
-$action = $_GET['action'] ?? ''; //pega qual ação deve ser feita
-
-
-$controller = new EventController();
-
-if ($action === 'store') {
-    $controller->store();
-} elseif ($action === 'update') {
-    $controller->update();
-}
-
+require_once __DIR__ . '/../models/EventModel.php';
 class EventController {
-
     private $model;
 
     public function __construct() {
         $this->model = new EventModel();
     }
 
-   
-    public function store() {//função para criar eventos
-        // Pega os dados
+    // função para criar eventos
+    public function store() {
         $dados = [
             'titulo'    => $_POST['titulo'] ?? '',
             'data'      => $_POST['data_evento'] ?? '',
@@ -31,21 +16,16 @@ class EventController {
             'local'     => $_POST['local'] ?? '',
             'descricao' => $_POST['descricao'] ?? ''
         ];
-    
-        // Manda para o model
-        $sucesso = $this->model->save($dados);
 
-        if ($sucesso) {
-            
-            echo "<script>
-                    alert('Evento criado com sucesso (Simulação)!');
-                    window.location.href = '/index.php?page=eventos';
-                  </script>";
-        }
+        $this->model->save($dados);
+    
+        //manda direto pro eventos, para não duplicar igual antes
+        header("Location: /index.php?page=eventos");
+        exit;
     }
 
-    
-    public function update() { //função para editar eventos
+    // função paar editar eventos
+    public function update() {
         $id = $_GET['id'] ?? null;
 
         $dados_atualizados = [
@@ -56,13 +36,12 @@ class EventController {
             'local'     => $_POST['local'] ?? '',
             'descricao' => $_POST['descricao'] ?? ''
         ];
-          $sucesso = $this->model->update($id, $dados_atualizados);
-   
-        error_log("CONTROLLER: Atualizando evento ID $id com dados: " . print_r($dados_atualizados, true));
 
-        echo "<script>
-                alert('Evento ID $id atualizado com sucesso (Simulação)!');
-                window.location.href = '/index.php?page=eventos';
-              </script>";
+        // atualiza na session
+        $this->model->update($id, $dados_atualizados);
+   
+        // manda pra lista
+        header("Location: /index.php?page=eventos");
+        exit;
     }
 }
