@@ -27,7 +27,6 @@ require_once __DIR__ . '/../partials/header.php';
                         
                         <div class="event-card-footer">
                             <a href="/index.php?page=detalhes-evento&id=<?= $evento['id'] ?>" class="btn-details">Ver detalhes →</a>
-                            <a href="/index.php?page=editar-evento&id=<?= $evento['id'] ?>" class="btn-edit">Editar ✏️</a>
                         </div>
                     </div>
                 </div>
