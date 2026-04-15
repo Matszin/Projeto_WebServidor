@@ -47,6 +47,7 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
       EventController.php
     /models
       EventModel.php
+      Auth.php
     /views
       /adm
         painel.php
