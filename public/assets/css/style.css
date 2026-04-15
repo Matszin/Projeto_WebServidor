@@ -468,3 +468,44 @@ body {
     text-align: center;
     font-weight: bold;
 }
+
+.admin-columns-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.admin-column {
+    flex: 1;
+    min-width: 450px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.admin-column h2 {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f1f5f9;
+    color: #0f172a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.badge-count {
+    background: #38bdf8;
+    color: #020617;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+}
+
+.admin-table th {
+    background-color: #f8fafc;
+}
+
+.role-user { color: #64748b; font-weight: bold; }
+.role-admin { color: #0ea5e9; font-weight: bold; }
