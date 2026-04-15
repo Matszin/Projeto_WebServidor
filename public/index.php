@@ -39,5 +39,9 @@ error_reporting(E_ALL);
             case 'admin':
                 require_once $base_path . 'admin/painel.php';
                 break;
+            case 'detalhes-evento':
+                require_once $base_path . 'events/detalhes_evento.php';
+                break;
+
             
 }

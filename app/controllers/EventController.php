@@ -20,7 +20,7 @@ class EventController {
         $this->model->save($dados);
     
         //manda direto pro eventos, para não duplicar igual antes
-        header("Location: /index.php?page=eventos");
+        header("Location: /index.php?page=home");
         exit;
     }
 
