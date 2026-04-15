@@ -41,7 +41,11 @@ require_once __DIR__ . '/../partials/header.php';
                                 <td><?= $evento['local'] ?></td>
                                 <td class="actions-cell">
                                     <a href="/index.php?page=editar-evento&id=<?= $evento['id'] ?>" class="btn-edit-table">Editar</a>
-                                    <span class="btn-delete-table" onclick="alert('A exclusão será implementada com banco de dados no Trabalho 2!')">Excluir</span>
+                                    <a href="/index.php?action=destroy&id=<?= $evento['id'] ?>" 
+                                        class="btn-delete-table" 
+                                        onclick="return confirm('Tem certeza que deseja excluir este evento?')">
+                                        Excluir
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

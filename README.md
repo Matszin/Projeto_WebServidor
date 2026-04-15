@@ -1,7 +1,7 @@
 # Projeto_WebServidor
 Projeto desenvolvido para matéria de web servidor
 
-# 🗓️ EventHub — Plataforma de Gestão de Eventos
+#  EventHub — Plataforma de Gestão de Eventos
 
 ![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?style=flat&logo=php&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-yellow?style=flat)
@@ -10,7 +10,7 @@ Projeto desenvolvido para matéria de web servidor
 
 ---
 
-## 👥 Integrantes
+##  Integrantes
 
 | Nome                        | Responsabilidades |
 |-----------------------------|-------------------|
@@ -21,7 +21,7 @@ Projeto desenvolvido para matéria de web servidor
 
 ---
 
-## 📌 Sobre o Projeto
+##  Sobre o Projeto
 
 O **EventHub** é uma aplicação web desenvolvida como projeto prático da disciplina de Servidor Web, utilizando PHP 8+ sem frameworks, seguindo o padrão MVC.
 
@@ -29,19 +29,18 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
 
 ---
 
-## ✅ Funcionalidades
+##  Funcionalidades
 
 - Autenticação com dois níveis de acesso: Admin e Participante
 - Cadastro e edição de perfil (foto, bio, área de atuação, links)
 - Criação e gerenciamento de eventos de qualquer tipo
-- Listagem de eventos com filtros por nome, tipo e data
-- Inscrição em eventos (reserva ou compra de ingresso)
-- Painel do organizador: lista de inscritos e gerenciamento de requisições
-- Painel do admin: visão geral de todos os usuários e eventos da plataforma
+- Listagem de eventos
+- Inscrição em eventos
+- Painel do admin: visão geral de todos os usuários
 
 ```
 
-🗂️ Estrutura de Pastas *até o momento*
+ Estrutura de Pastas *até o momento*
 /eventhub
   /app
     /controllers
@@ -54,9 +53,10 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
         user.php
       /events
         criar_eventos.php
+        detalhes_evento.php
         editar_eventos.php
         listar_eventos.php
-        meus_eventos.php
+        gerenciar_eventos.php
       /partials
         header.php
         navbar.php
@@ -72,26 +72,25 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
 
 ```
 
-## 🖥️ Telas do Sistema
+##  Telas do Sistema
 
 | # | Tela                       | Quem acessa                |
 |---|----------------------------|----------------------------|
 | 1 | Login                      | Todos                      |
-| 2 | Cadastro de conta          | Público                    |
-| 3 | Perfil do participante     | Participante               |
+| 2 | Cadastro de conta          | Todos                      |
+| 3 | Perfil do participante     | Todos                      |
 | 4 | Home / Listagem de eventos | Todos                      |
 | 5 | Página do evento           | Todos                      |
-| 6 | Criar / Editar evento      | Participante (organizador) |
-| 7 | Painel do organizador      | Participante (organizador) |
-| 8 | Painel do admin            | Admin                      |
+| 6 | Criar / Editar evento      | Admin                      |
+| 7 | Painel do admin            | Admin                      |
 
 ---
-## 🚀 Instalação e Configuração
+## Instalação e Configuração
 
 ### Requisitos
 
 - PHP 8+
-- Servidor web (Apache ou Nginx) ou PHP built-in server
+- Servidor web (Apache)
 - MySQL / MariaDB *(Trabalho 2)*
 
 ### Como rodar localmente
