@@ -458,3 +458,13 @@ body {
     margin-bottom: 20px;
     color: #555;
 }
+
+.error-msg {
+    background: #ffdddd;
+    color: #a00;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}

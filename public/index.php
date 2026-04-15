@@ -1,14 +1,17 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) && ($_GET['action'] ?? '') !== 'login') {
-    require __DIR__ . '/../app/views/auth/login.php';
-    exit;
-}
+
 ini_set('display_errors', 1); 
 error_reporting(E_ALL);
 
+$page = $_GET['page'] ?? 'home';
 $action = $_GET['action'] ?? '';
 
+/* =========================
+   🔹 AÇÕES (LOGIN / REGISTER / LOGOUT)
+========================= */
+
+// LOGIN
 if ($action === 'login') {
 
     $type = $_POST['type'] ?? '';
@@ -16,56 +19,111 @@ if ($action === 'login') {
     $password = trim($_POST['password'] ?? '');
 
     if (empty($email) || empty($password) || empty($type)) {
-        header("Location: /app/views/auth/login.php?error=1");
+        header("Location: /public/index.php?error=campos");
         exit;
     }
 
+    // usuários cadastrados (session)
+    if (isset($_SESSION['users'])) {
+        foreach ($_SESSION['users'] as $user) {
+            if (
+                $user['email'] === $email &&
+                $user['password'] === $password &&
+                $user['type'] === $type
+            ) {
+                $_SESSION['user'] = $email;
+                $_SESSION['type'] = $type;
+
+                header("Location: /public/index.php?page=home");
+                exit;
+            }
+        }
+    }
+
+    // fallback (Auth.php)
     require_once __DIR__ . '/../app/models/Auth.php';
 
-if (Auth::login($type, $email, $password)) {
+    if (Auth::login($type, $email, $password)) {
 
-    $_SESSION['user'] = $email;
-    $_SESSION['type'] = $type;
-
-    if ($type === 'admin') {
-        header("Location: /app/views/admin/painel.php");
-    } else {
-        header("Location: /app/views/events/listar_eventos.php");
-    }
-    exit;
-
-} else {
-    header("Location: /app/views/auth/login.php?error=1");
-    exit;
-}
-
-    if (
-        isset($users[$type]) &&
-        $email === $users[$type]['email'] &&
-        $password === $users[$type]['password']
-    ) {
         $_SESSION['user'] = $email;
         $_SESSION['type'] = $type;
 
-        if ($type === 'admin') {
-            header("Location: /app/views/admin/painel.php");
-        } else {
-            header("Location: /app/views/events/listar_eventos.php");
-        }
+        header("Location: /public/index.php?page=home");
         exit;
-    } else {
-        header("Location: /app/views/auth/login.php?error=1");
+    }
+
+    header("Location: /public/index.php?error=login");
+    exit;
+}
+
+
+// REGISTER
+if ($action === 'register') {
+
+    $type = $_POST['type'] ?? '';
+    $email = trim($_POST['email'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+    $confirm = trim($_POST['confirm_password'] ?? '');
+
+    if (empty($email) || empty($password) || empty($confirm) || empty($type)) {
+        header("Location: /public/index.php?page=register&error=campos");
+        exit;
+    }
+
+    if ($password !== $confirm) {
+        header("Location: /public/index.php?page=register&error=senha");
+        exit;
+    }
+
+    if (!isset($_SESSION['users'])) {
+        $_SESSION['users'] = [];
+    }
+
+    foreach ($_SESSION['users'] as $user) {
+        if ($user['email'] === $email) {
+            header("Location: /public/index.php?page=register&error=email");
+            exit;
+        }
+    }
+
+    $_SESSION['users'][] = [
+        'email' => $email,
+        'password' => $password,
+        'type' => $type
+    ];
+
+    header("Location: /public/index.php?success=1");
+    exit;
+}
+
+
+// LOGOUT
+if ($action === 'logout') {
+    unset($_SESSION['user']);
+    unset($_SESSION['type']);
+
+    header("Location: /public/index.php");
+    exit;
+}
+
+
+/* =========================
+   🔒 PROTEÇÃO
+========================= */
+
+if (!isset($_SESSION['user'])) {
+
+    if ($page !== 'register') {
+        require __DIR__ . '/../app/views/auth/login.php';
         exit;
     }
 }
 
-if ($action === 'logout') {
-    session_destroy();
-    header("Location: /app/views/auth/login.php");
-    exit;
-}
 
-$page = $_GET['page'] ?? 'home';
+/* =========================
+   📄 ROTAS
+========================= */
+
 $base_path = __DIR__ . '/../app/views/';
 
 switch ($page) {
@@ -91,5 +149,9 @@ switch ($page) {
 
     case 'detalhes-evento':
         require_once $base_path . 'events/detalhes_evento.php';
+        break;
+
+    case 'register':
+        require_once $base_path . 'auth/register.php';
         break;
 }

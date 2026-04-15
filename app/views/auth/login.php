@@ -58,6 +58,10 @@ include __DIR__ . '/../partials/header.php';
         <h1 class="logo-login">EventHub</h1>
         <h2>Login</h2>
 
+        <p style="text-align:center; margin-top:10px;">
+        Não tem conta? <a href="/public/index.php?page=register">Cadastre-se</a>
+        </p>
+
         <?php if (isset($_GET['error'])): ?>
             <div class="error-msg">
                 Email ou senha inválidos!
