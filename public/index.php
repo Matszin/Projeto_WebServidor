@@ -1,29 +1,31 @@
 <?php
 session_start();
 
+// --- CONFIGURAÇÕES DE ERRO ---
 ini_set('display_errors', 1); 
 error_reporting(E_ALL);
 
-$page = $_GET['page'] ?? 'home';
+// --- IMPORTAÇÕES ---
+require_once __DIR__ . '/../app/models/Auth.php';
+
+// --- AÇÕES ---
 $action = $_GET['action'] ?? '';
 
-/* =========================
-   🔹 AÇÕES (LOGIN / REGISTER / LOGOUT)
-========================= */
-
-// LOGIN
+// =========================
+// 🔐 LOGIN
+// =========================
 if ($action === 'login') {
 
-    $type = $_POST['type'] ?? '';
-    $email = trim($_POST['email'] ?? '');
+    $type     = $_POST['type'] ?? '';
+    $email    = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
     if (empty($email) || empty($password) || empty($type)) {
-        header("Location: /public/index.php?error=campos");
+        header("Location: /public/index.php?page=login&error=campos");
         exit;
     }
 
-    // usuários cadastrados (session)
+    // usuários cadastrados via session
     if (isset($_SESSION['users'])) {
         foreach ($_SESSION['users'] as $user) {
             if (
@@ -40,11 +42,8 @@ if ($action === 'login') {
         }
     }
 
-    // fallback (Auth.php)
-    require_once __DIR__ . '/../app/models/Auth.php';
-
+    // fallback Auth.php
     if (Auth::login($type, $email, $password)) {
-
         $_SESSION['user'] = $email;
         $_SESSION['type'] = $type;
 
@@ -52,26 +51,27 @@ if ($action === 'login') {
         exit;
     }
 
-    header("Location: /public/index.php?error=login");
+    header("Location: /public/index.php?page=login&error=1");
     exit;
 }
 
-
-// REGISTER
+// =========================
+// 📝 REGISTER
+// =========================
 if ($action === 'register') {
 
-    $type = $_POST['type'] ?? '';
-    $email = trim($_POST['email'] ?? '');
+    $type     = $_POST['type'] ?? '';
+    $email    = trim($_POST['email'] ?? '');
     $password = trim($_POST['password'] ?? '');
-    $confirm = trim($_POST['confirm_password'] ?? '');
+    $confirm  = trim($_POST['confirm_password'] ?? '');
 
     if (empty($email) || empty($password) || empty($confirm) || empty($type)) {
-        header("Location: /public/index.php?page=register&error=campos");
+        header("Location: /public/index.php?page=cadastro&error=campos");
         exit;
     }
 
     if ($password !== $confirm) {
-        header("Location: /public/index.php?page=register&error=senha");
+        header("Location: /public/index.php?page=cadastro&error=senha");
         exit;
     }
 
@@ -81,7 +81,7 @@ if ($action === 'register') {
 
     foreach ($_SESSION['users'] as $user) {
         if ($user['email'] === $email) {
-            header("Location: /public/index.php?page=register&error=email");
+            header("Location: /public/index.php?page=cadastro&error=email");
             exit;
         }
     }
@@ -92,66 +92,99 @@ if ($action === 'register') {
         'type' => $type
     ];
 
-    header("Location: /public/index.php?success=1");
+    header("Location: /public/index.php?page=login&success=1");
     exit;
 }
 
-
-// LOGOUT
+// =========================
+// 🚪 LOGOUT
+// =========================
 if ($action === 'logout') {
     unset($_SESSION['user']);
     unset($_SESSION['type']);
 
-    header("Location: /public/index.php");
+    header("Location: /public/index.php?page=login");
     exit;
 }
 
+// =========================
+// 📦 EVENTOS (controller)
+// =========================
+if (in_array($action, ['store', 'update', 'destroy']) && isset($_SESSION['user'])) {
+    require_once __DIR__ . '/../app/controllers/EventController.php';
+    $controller = new EventController();
 
-/* =========================
-   🔒 PROTEÇÃO
-========================= */
-
-if (!isset($_SESSION['user'])) {
-
-    if ($page !== 'register') {
-        require __DIR__ . '/../app/views/auth/login.php';
-        exit;
+    switch ($action) {
+        case 'store':   $controller->store();   break;
+        case 'update':  $controller->update();  break;
+        case 'destroy': $controller->destroy(); break;
     }
+    exit;
 }
 
+// =========================
+// 🔒 CONTROLE DE ACESSO
+// =========================
+$page = $_GET['page'] ?? 'home';
+$is_logged = isset($_SESSION['user']);
 
-/* =========================
-   📄 ROTAS
-========================= */
+// páginas públicas
+$public_pages = ['login', 'cadastro'];
 
+if (!$is_logged && !in_array($page, $public_pages)) {
+    header("Location: /public/index.php?page=login");
+    exit;
+}
+
+if ($is_logged && in_array($page, $public_pages)) {
+    header("Location: /public/index.php?page=home");
+    exit;
+}
+
+// =========================
+// 📄 ROTAS
+// =========================
 $base_path = __DIR__ . '/../app/views/';
 
 switch ($page) {
-    case 'criar-evento':
-        require_once $base_path . 'events/criar_eventos.php';
-        break;
-    
-    case 'editar-evento':
-        require_once $base_path . 'events/editar_eventos.php';
-        break;
-
     case 'home':
         require_once $base_path . 'events/listar_eventos.php';
-        break;
-
-    case 'meus-eventos':
-        require_once $base_path . 'events/meus_eventos.php';
-        break;
-
-    case 'admin':
-        require_once $base_path . 'admin/painel.php';
         break;
 
     case 'detalhes-evento':
         require_once $base_path . 'events/detalhes_evento.php';
         break;
 
-    case 'register':
+    case 'criar-evento':
+        require_once $base_path . 'events/criar_eventos.php';
+        break;
+
+    case 'editar-evento':
+        require_once $base_path . 'events/editar_eventos.php';
+        break;
+
+    case 'meus-eventos':
+    case 'gerenciar-eventos':
+        require_once $base_path . 'events/gerenciar_eventos.php';
+        break;
+
+    case 'admin':
+        require_once $base_path . 'admin/painel.php';
+        break;
+
+    case 'login':
+        require_once $base_path . 'auth/login.php';
+        break;
+
+    case 'cadastro':
         require_once $base_path . 'auth/register.php';
+        break;
+
+    case 'perfil':
+        require_once $base_path . 'user/perfil.php';
+        break;
+
+    default:
+        header("Location: /public/index.php?page=home");
         break;
 }

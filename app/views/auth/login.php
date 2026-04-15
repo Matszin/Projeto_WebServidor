@@ -59,7 +59,7 @@ include __DIR__ . '/../partials/header.php';
         <h2>Login</h2>
 
         <p style="text-align:center; margin-top:10px;">
-        Não tem conta? <a href="/public/index.php?page=register">Cadastre-se</a>
+        Não tem conta? <a href="/public/index.php?page=cadastro">Cadastre-se</a>
         </p>
 
         <?php if (isset($_GET['error'])): ?>

@@ -1,2 +1,2 @@
-// Teste básico
+//teste básico
 console.log("JavaScript está funcionando");

@@ -36,12 +36,23 @@ class EventController {
             'local'     => $_POST['local'] ?? '',
             'descricao' => $_POST['descricao'] ?? ''
         ];
-
+        
         // atualiza na session
         $this->model->update($id, $dados_atualizados);
-   
+        
         // manda pra lista
         header("Location: /index.php?page=home");
+        exit;
+        
+    }
+    public function destroy(){
+        $id = $_GET["id"] ?? null;
+
+            if($id != null){
+                $this->model->delete($id);
+            }
+            //manda para o home
+            header("Location: /index.php?page=home");
         exit;
     }
 }
