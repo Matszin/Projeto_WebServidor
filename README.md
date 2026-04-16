@@ -25,14 +25,14 @@ Projeto desenvolvido para matéria de web servidor
 
 O **EventHub** é uma aplicação web desenvolvida como projeto prático da disciplina de Servidor Web, utilizando PHP 8+ sem frameworks, seguindo o padrão MVC.
 
-A plataforma permite que qualquer usuário crie eventos e gerencie inscrições, ou que se inscreva em eventos criados por outros. O sistema conta com dois perfis de acesso — **Admin** e **Participante** — sendo que o participante pode assumir o papel de organizador ao criar um evento
+A plataforma permite que qualquer usuário se inscreva em eventos criados. O sistema conta com dois perfis de acesso — **Admin** e **Participante** 
 
 ---
 
 ##  Funcionalidades
 
 - Autenticação com dois níveis de acesso: Admin e Participante
-- Cadastro e edição de perfil (foto, bio, área de atuação, links)
+- Cadastro e edição de perfil (atualização de senhas)
 - Criação e gerenciamento de eventos de qualquer tipo
 - Listagem de eventos
 - Inscrição em eventos
@@ -51,10 +51,10 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
     /models
       EventModel.php
       Auth.php
+      UserModel.php
     /views
-      /adm
+      /admin
         painel.php
-        user.php
       /auth
         login.php
         register.php
@@ -63,11 +63,14 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
         detalhes_evento.php
         editar_eventos.php
         listar_eventos.php
+        inscricoes.php
         gerenciar_eventos.php
       /partials
         header.php
         navbar.php
         footer.php
+      /user
+        perfil.php
   /config  
   /public         
     index.php
