@@ -1,4 +1,9 @@
 <?php
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => false,
+    'samesite' => 'Strict'
+]);
 session_start();
 
 //config de erro
@@ -31,8 +36,11 @@ if ($action === 'login') {
                 $user['password'] === $password &&
                 $user['type'] === $type
             ) {
+                session_regenerate_id(true);
+
                 $_SESSION['user'] = $email;
                 $_SESSION['type'] = $type;
+                $_SESSION['login_time'] = time();
 
                 header("Location: /public/index.php?page=home");
                 exit;
@@ -40,10 +48,13 @@ if ($action === 'login') {
         }
     }
 
-    //se o login falhar
     if (Auth::login($type, $email, $password)) {
+
+        session_regenerate_id(true);
+
         $_SESSION['user'] = $email;
         $_SESSION['type'] = $type;
+        $_SESSION['login_time'] = time();
 
         header("Location: /public/index.php?page=home");
         exit;
@@ -117,6 +128,23 @@ if ($action === 'inscrever') {
     // evita duplicado
     if (!in_array($id, $_SESSION['inscricoes'][$email])) {
         $_SESSION['inscricoes'][$email][] = $id;
+    }
+
+    header("Location: /public/index.php?page=inscricoes");
+    exit;
+}
+
+if ($action === 'cancelar') {
+
+    $id = $_GET['id'] ?? null;
+    $email = $_SESSION['user'] ?? null;
+
+    if ($id && $email && isset($_SESSION['inscricoes'][$email])) {
+
+        $_SESSION['inscricoes'][$email] = array_filter(
+            $_SESSION['inscricoes'][$email],
+            fn($eventoId) => $eventoId != $id
+        );
     }
 
     header("Location: /public/index.php?page=inscricoes");

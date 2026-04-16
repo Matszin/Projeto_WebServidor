@@ -43,9 +43,9 @@ require_once __DIR__ . '/../partials/header.php';
                 <p><?= nl2br($evento['descricao']) ?></p>
             </div>
 
-            <button class="btn-subscribe" onclick="alert('Inscrição realizada com sucesso (Simulação)!')">
+            <a href="/public/index.php?action=inscrever&id=<?= $evento['id'] ?>" class="btn-subscribe">
                 Quero me inscrever!
-            </button>
+            </a>
         </div>
     </main>
 </div>
