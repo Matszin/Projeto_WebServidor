@@ -29,7 +29,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'store') {
                   <!-- O formulário envia para o index, passando a página e a ação -->
                     <form action="/index.php?page=criar-evento&action=store" method="POST" enctype="multipart/form-data">
 
-                        <!--Titulo do formulário-->
+                        <!--titulo do formulário-->
                         <div class="form-group">
                             <label for="titulo">Título do Evento</label>
                             <input type="text" id="titulo" name="titulo" placeholder="Ex:Futebol as 19:00" required>
@@ -56,25 +56,19 @@ if (isset($_GET['action']) && $_GET['action'] === 'store') {
                             </div>
                         </div>
 
-                        <!-- Local-->
+                        <!-- local-->
                         <div class="form-group">
                             <label for="local">Local ou Link (se online)</label>
                             <input type="text" id="local" name="local" placeholder="Ex: Auditório Central ou URL do Meet" required>
                         </div>
 
-                        <!-- Descrição -->
+                        <!-- descrição -->
                         <div class="form-group">
                             <label for="descricao">Descrição Completa</label>
                             <textarea id="descricao" name="descricao" rows="4" placeholder="Detalhes do evento, palestrantes, etc..." required></textarea>
                         </div>
 
-                        <!--Imgem -->
-                        <div class="form-group">
-                            <label for="banner">Imagem do Banner</label>
-                            <input type="file" id="banner" name="banner" accept="image/*">
-                        </div>
-
-                        <!--Botões-->
+                        <!--botões-->
                        <div class="form-actions">
                             <button type="reset" class="btn-secondary">Limpar</button>
                             <button type="submit" class="btn-primary">Publicar Evento</button>

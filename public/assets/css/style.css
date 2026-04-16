@@ -263,13 +263,6 @@ body {
     max-width: 900px;
 }
 
-.event-banner {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 25px;
-}
 
 .event-info-row {
     display: flex;
