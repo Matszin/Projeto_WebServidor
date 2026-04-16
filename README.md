@@ -37,14 +37,17 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
 - Listagem de eventos
 - Inscrição em eventos
 - Painel do admin: visão geral de todos os usuários
+- Conceder ou tirar privilégios
+- Excluir usuarios
 
 ```
 
- Estrutura de Pastas *até o momento*
+ Estrutura de Pastas
 /eventhub
   /app
     /controllers
       EventController.php
+      UserController.php
     /models
       EventModel.php
       Auth.php
@@ -52,6 +55,9 @@ A plataforma permite que qualquer usuário crie eventos e gerencie inscrições,
       /adm
         painel.php
         user.php
+      /auth
+        login.php
+        register.php
       /events
         criar_eventos.php
         detalhes_evento.php

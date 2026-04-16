@@ -50,8 +50,14 @@ require_once __DIR__ . '/../partials/header.php';
                             <td><?= $u['nome'] ?></td>
                             <td><?= $u['email'] ?></td>
                             <td class="actions-cell">
-                                <a href="#" class="btn-edit-table" title="Tornar Admin">💎</a>
-                                <a href="#" class="btn-delete-table" title="Excluir">🗑️</a>
+                                <!--torna o usuario em adm -->
+                               <a href="/index.php?action=change-role&id=<?= $u['id'] ?>&role=admin" 
+                                class="btn-edit-table" title="Tornar Admin">💎</a>
+                                
+                                <!--exclui usuario -->
+                                <a href="/index.php?action=delete-user&id=<?= $u['id'] ?>" 
+                                class="btn-delete-table" title="Excluir"
+                                onclick="return confirm('Deseja excluir este usuário?')">❌</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -79,8 +85,14 @@ require_once __DIR__ . '/../partials/header.php';
                             <td><?= $a['nome'] ?></td>
                             <td><?= $a['email'] ?></td>
                             <td class="actions-cell">
-                                <a href="#" class="btn-edit-table" title="Remover Admin">👤</a>
-                                <a href="#" class="btn-delete-table" title="Excluir">🗑️</a>
+                                <!-- tira o privilégio de adm-->
+                                <a href="/index.php?action=change-role&id=<?= $a['id'] ?>&role=user" 
+                                class="btn-edit-table" title="Remover Admin"> 🗑️ </a>
+                                
+                                <!--deleta o adm-->
+                                <a href="/index.php?action=delete-user&id=<?= $a['id'] ?>" 
+                                class="btn-delete-table" title="Excluir"
+                                onclick="return confirm('Deseja excluir este administrador?')">❌</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
