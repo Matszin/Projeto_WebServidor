@@ -468,3 +468,36 @@ body {
     text-align: center;
     font-weight: bold;
 }
+
+.content-form {
+    max-width: 700px;
+    margin-top: 20px;
+}
+
+.success-msg {
+    background: #e6ffed;
+    color: #0a7a2f;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.form-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.event-list {
+    list-style: none;
+    padding: 0;
+}
+
+.event-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}

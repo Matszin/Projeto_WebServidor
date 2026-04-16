@@ -9,6 +9,9 @@
             <li><a href="/index.php?page=admin">Painel Admin</a></li>
         <?php endif; ?>
 
+        <?php if (isset($_SESSION['type']) && $_SESSION['type'] === 'user'): ?>
+        <li><a href="/public/index.php?page=inscricoes">Eventos Inscritos</a></li>
+        <?php endif; ?>    
         <li><a href="/index.php?page=perfil">Meu Perfil</a></li>
         <li><a href="/public/index.php?action=logout">Sair</a></li>
     </ul>

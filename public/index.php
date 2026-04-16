@@ -107,6 +107,70 @@ if ($action === 'logout') {
     exit;
 }
 
+if ($action === 'inscrever') {
+
+    $id = $_GET['id'] ?? '';
+    $email = $_SESSION['user'];
+
+    if (!isset($_SESSION['inscricoes'])) {
+        $_SESSION['inscricoes'] = [];
+    }
+
+    if (!isset($_SESSION['inscricoes'][$email])) {
+        $_SESSION['inscricoes'][$email] = [];
+    }
+
+    // evita duplicado
+    if (!in_array($id, $_SESSION['inscricoes'][$email])) {
+        $_SESSION['inscricoes'][$email][] = $id;
+    }
+
+    header("Location: /public/index.php?page=inscricoes");
+    exit;
+}
+
+if ($action === 'update-profile') {
+
+    $current = $_POST['current_password'] ?? '';
+    $new     = $_POST['new_password'] ?? '';
+    $confirm = $_POST['confirm_password'] ?? '';
+
+    if (empty($current) || empty($new) || empty($confirm)) {
+        header("Location: /public/index.php?page=perfil&error=campos");
+        exit;
+    }
+
+    if ($new !== $confirm) {
+        header("Location: /public/index.php?page=perfil&error=senha");
+        exit;
+    }
+
+    $userFound = false;
+
+    foreach ($_SESSION['users'] as &$user) {
+        if ($user['email'] === $_SESSION['user']) {
+
+            // verifica senha atual
+            if ($user['password'] !== $current) {
+                header("Location: /public/index.php?page=perfil&error=atual");
+                exit;
+            }
+
+            // atualiza senha
+            $user['password'] = $new;
+            $userFound = true;
+        }
+    }
+
+    if ($userFound) {
+        header("Location: /public/index.php?page=perfil&success=1");
+    } else {
+        header("Location: /public/index.php?page=perfil&error=1");
+    }
+
+    exit;
+}
+
 // =========================
 // 📦 EVENTOS (controller)
 // =========================
@@ -170,6 +234,10 @@ switch ($page) {
 
     case 'admin':
         require_once $base_path . 'admin/painel.php';
+        break;
+
+    case 'inscricoes':
+        require_once $base_path . 'events/inscricoes.php';
         break;
 
     case 'login':
