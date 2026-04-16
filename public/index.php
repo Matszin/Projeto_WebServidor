@@ -1,19 +1,17 @@
 <?php
 session_start();
 
-// --- CONFIGURAÇÕES DE ERRO ---
+//config de erro
 ini_set('display_errors', 1); 
 error_reporting(E_ALL);
 
-// --- IMPORTAÇÕES ---
+
 require_once __DIR__ . '/../app/models/Auth.php';
 
-// --- AÇÕES ---
+//pega uma ação
 $action = $_GET['action'] ?? '';
 
-// =========================
-// 🔐 LOGIN
-// =========================
+//login
 if ($action === 'login') {
 
     $type     = $_POST['type'] ?? '';
@@ -25,7 +23,7 @@ if ($action === 'login') {
         exit;
     }
 
-    // usuários cadastrados via session
+    //usuários cadastrados via session
     if (isset($_SESSION['users'])) {
         foreach ($_SESSION['users'] as $user) {
             if (
@@ -42,7 +40,7 @@ if ($action === 'login') {
         }
     }
 
-    // fallback Auth.php
+    //se o login falhar
     if (Auth::login($type, $email, $password)) {
         $_SESSION['user'] = $email;
         $_SESSION['type'] = $type;
@@ -55,9 +53,7 @@ if ($action === 'login') {
     exit;
 }
 
-// =========================
-// 📝 REGISTER
-// =========================
+
 if ($action === 'register') {
 
     $type     = $_POST['type'] ?? '';
@@ -96,9 +92,7 @@ if ($action === 'register') {
     exit;
 }
 
-// =========================
-// 🚪 LOGOUT
-// =========================
+
 if ($action === 'logout') {
     unset($_SESSION['user']);
     unset($_SESSION['type']);
@@ -185,14 +179,23 @@ if (in_array($action, ['store', 'update', 'destroy']) && isset($_SESSION['user']
     }
     exit;
 }
+//troca de usuario para adm 
+if (in_array($action, ['delete-user', 'change-role']) && isset($_SESSION['user']) && $_SESSION['type'] === 'admin') {
+    require_once __DIR__ . '/../app/controllers/UserController.php';
+    $userCtrl = new UserController();
+    
+    switch ($action) {
+        case 'delete-user': $userCtrl->destroy();    break;
+        case 'change-role': $userCtrl->changeRole(); break;
+    }
+    exit;
+}
 
-// =========================
-// 🔒 CONTROLE DE ACESSO
-// =========================
+//controle de acessp
 $page = $_GET['page'] ?? 'home';
 $is_logged = isset($_SESSION['user']);
 
-// páginas públicas
+// paginas publicas
 $public_pages = ['login', 'cadastro'];
 
 if (!$is_logged && !in_array($page, $public_pages)) {
@@ -205,9 +208,7 @@ if ($is_logged && in_array($page, $public_pages)) {
     exit;
 }
 
-// =========================
-// 📄 ROTAS
-// =========================
+
 $base_path = __DIR__ . '/../app/views/';
 
 switch ($page) {
