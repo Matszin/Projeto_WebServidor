@@ -15,8 +15,8 @@ body {
 /*layout principal*/
 .layout {
     display: flex;
-    width: 100%; /* Adicione isso para garantir que ela use a tela toda */
-    min-height: calc(100vh - 50px); /* Ajuste para descontar a altura do footer se necessário */
+    width: 100%; 
+    min-height: calc(100vh - 50px);
 }
 /*menu lateral*/
 .sidebar {
