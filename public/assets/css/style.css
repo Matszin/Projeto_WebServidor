@@ -542,7 +542,6 @@ body {
 
 .role-user { color: #64748b; font-weight: bold; }
 .role-admin { color: #0ea5e9; font-weight: bold; }
-<<<<<<< HEAD
 
 .container {
     max-width: 600px;
@@ -590,5 +589,12 @@ body {
 .btn-subscribe {
     text-align: center;
 }
-=======
->>>>>>> e5cc1f9da2612fa61509d970c29083ceff961895
+
+.success-msg {
+    background: #e6ffed;
+    color: #0a7a2f;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+}

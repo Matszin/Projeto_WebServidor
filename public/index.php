@@ -28,7 +28,8 @@ if ($action === 'login') {
         exit;
     }
 
-    //usuários cadastrados via session
+    $loginOk = false;
+
     if (isset($_SESSION['users'])) {
         foreach ($_SESSION['users'] as $user) {
             if (
@@ -36,19 +37,20 @@ if ($action === 'login') {
                 $user['password'] === $password &&
                 $user['type'] === $type
             ) {
-                session_regenerate_id(true);
-
-                $_SESSION['user'] = $email;
-                $_SESSION['type'] = $type;
-                $_SESSION['login_time'] = time();
-
-                header("Location: /public/index.php?page=home");
-                exit;
+                $loginOk = true;
+                break;
             }
         }
     }
 
-    if (Auth::login($type, $email, $password)) {
+    if (!$loginOk) {
+        if (Auth::login($type, $email, $password)) {
+            $loginOk = true;
+        }
+    }
+
+    // 🔹 3. Resultado final
+    if ($loginOk) {
 
         session_regenerate_id(true);
 
@@ -63,7 +65,6 @@ if ($action === 'login') {
     header("Location: /public/index.php?page=login&error=1");
     exit;
 }
-
 
 if ($action === 'register') {
 
@@ -157,7 +158,7 @@ if ($action === 'update-profile') {
     $new     = $_POST['new_password'] ?? '';
     $confirm = $_POST['confirm_password'] ?? '';
 
-    if (empty($current) || empty($new) || empty($confirm)) {
+    if (!$current || !$new || !$confirm) {
         header("Location: /public/index.php?page=perfil&error=campos");
         exit;
     }
@@ -167,35 +168,49 @@ if ($action === 'update-profile') {
         exit;
     }
 
+    $email = $_SESSION['user'];
+    $type  = $_SESSION['type'];
+
     $userFound = false;
 
-    foreach ($_SESSION['users'] as &$user) {
-        if ($user['email'] === $_SESSION['user']) {
+    // garante array
+    if (!isset($_SESSION['users'])) {
+        $_SESSION['users'] = [];
+    }
 
-            // verifica senha atual
+    foreach ($_SESSION['users'] as &$user) {
+
+        if ($user['email'] === $email && $user['type'] === $type) {
+
             if ($user['password'] !== $current) {
                 header("Location: /public/index.php?page=perfil&error=atual");
                 exit;
             }
 
-            // atualiza senha
             $user['password'] = $new;
             $userFound = true;
+            break;
         }
     }
+
+    unset($user);
 
     if ($userFound) {
         header("Location: /public/index.php?page=perfil&success=1");
     } else {
-        header("Location: /public/index.php?page=perfil&error=1");
+        $_SESSION['users'][] = [
+            'email' => $email,
+            'password' => $new,
+            'type' => $type
+        ];
+
+        header("Location: /public/index.php?page=perfil&success=1");
     }
 
     exit;
 }
 
-// =========================
-// 📦 EVENTOS (controller)
-// =========================
+// Eventos
 if (in_array($action, ['store', 'update', 'destroy']) && isset($_SESSION['user'])) {
     require_once __DIR__ . '/../app/controllers/EventController.php';
     $controller = new EventController();

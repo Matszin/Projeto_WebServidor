@@ -19,54 +19,62 @@ $type = $_SESSION['type'] ?? '';
             <h1>Meu Perfil</h1>
             <p>Visualize e edite suas informações</p>
 
-            <?php if (isset($_GET['error'])): ?>
-                <div class="error-msg">
-                    <?php
-                         if ($_GET['error'] === 'senha') echo "As novas senhas não coincidem!";
-                        elseif ($_GET['error'] === 'atual') echo "Senha atual incorreta!";
-                        else echo "Preencha todos os campos!";
-                    ?>
-                </div>
-            <?php endif; ?>
-
             <div class="content-form">
 
-            <h2 class="form-title">Editar Senha</h2>
+                <h2 class="form-title">Editar Senha</h2>
 
-            <form action="/public/index.php?action=update-profile" method="POST">
+                <form action="/public/index.php?action=update-profile" method="POST">
 
-                <!-- INFO -->
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" value="<?= htmlspecialchars($email) ?>" disabled>
-                </div>
-
-                <div class="form-group">
-                    <label>Tipo de Conta</label>
-                    <input type="text" value="<?= $type === 'admin' ? 'Administrador' : 'Usuário' ?>" disabled>
-                </div>
-
-                <!-- SENHAS -->
-                <div class="form-group">
-                    <label>Senha Atual</label>
-                    <input type="password" name="current_password" placeholder="Digite sua senha atual" required>
-                </div>
-
-                <div class="form-row">
+                    <!-- INFO -->
                     <div class="form-group">
-                        <label>Nova Senha</label>
-                        <input type="password" name="new_password" placeholder="Digite nova senha" required>
+                        <label>Email</label>
+                        <input type="text" value="<?= htmlspecialchars($email) ?>" disabled>
                     </div>
 
                     <div class="form-group">
-                        <label>Confirmar Nova Senha</label>
-                        <input type="password" name="confirm_password" placeholder="Confirme a nova senha" required>
+                        <label>Tipo de Conta</label>
+                        <input type="text" value="<?= $type === 'admin' ? 'Administrador' : 'Usuário' ?>" disabled>
                     </div>
-                </div>
 
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary">Salvar Alterações</button>
-                </div>
+                    <!-- SENHAS -->
+                    <div class="form-group">
+                        <label>Senha Atual</label>
+                        <input type="password" name="current_password" placeholder="Digite sua senha atual" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nova Senha</label>
+                            <input type="password" name="new_password" placeholder="Digite nova senha" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confirmar Nova Senha</label>
+                            <input type="password" name="confirm_password" placeholder="Confirme a nova senha" required>
+                        </div>
+                    </div>
+
+                    <!-- 🔥 MENSAGENS AGORA NO LUGAR CERTO -->
+                    <?php if (isset($_GET['error'])): ?>
+                        <div class="error-msg">
+                            <?php
+                                if ($_GET['error'] === 'senha') echo "As novas senhas não coincidem!";
+                                elseif ($_GET['error'] === 'atual') echo "Senha atual incorreta!";
+                                else echo "Preencha todos os campos!";
+                            ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (isset($_GET['success'])): ?>
+                        <div class="success-msg">
+                            Senha alterada com sucesso!
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- BOTÃO -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Salvar Alterações</button>
+                    </div>
 
                 </form>
 

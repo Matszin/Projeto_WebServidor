@@ -37,7 +37,6 @@ require_once __DIR__ . '/../partials/header.php';
                 <tbody>
                     <?php if (empty($eventos)): ?>
                         <tr>
-                            <!-- Agora usando a classe CSS em vez de style inline -->
                             <td colspan="4" class="table-empty-message">
                                 Você ainda não criou nenhum evento.
                             </td>
