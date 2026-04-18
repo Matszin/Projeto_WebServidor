@@ -14,8 +14,8 @@ Projeto desenvolvido para matéria de web servidor
 
 | Nome                        | Responsabilidades |
 |-----------------------------|-------------------|
-| **Mateus Nogari Teixeira**  | Criar/editar evento, painel do organizador, painel do admin |
-| **Vitor de Anhaia Polski**  | Login e cadastro de conta, perfil do participante, home/listagem de eventos, página do evento |
+| **Mateus Nogari Teixeira**  | Criar/editar evento, painel do organizador, painel do admin, home/listagem de eventos |
+| **Vitor de Anhaia Polski**  | Login e cadastro de conta, perfil do participante, página do evento |
 
 
 
@@ -40,6 +40,7 @@ A plataforma permite que qualquer usuário se inscreva em eventos criados. O sis
 - Conceder ou tirar privilégios
 - Excluir usuarios
 
+- Falta linkar o painel do admin com o sistema de cadastro de usuários
 ```
 
  Estrutura de Pastas
