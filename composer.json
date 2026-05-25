@@ -1,0 +1,17 @@
+{
+    "name": "vitor/projeto_web-servidor",
+    "autoload": {
+        "psr-4": {
+            "Vitor\\ProjetoWebServidor\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "vitorpolski",
+            "email": "hpvmce@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
