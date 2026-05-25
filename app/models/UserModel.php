@@ -1,48 +1,127 @@
 <?php
 
+require_once __DIR__ . '/../config/database.php';
+
 class UserModel {
-    
+
+    private $pdo;
+
     public function __construct() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
 
-        // Se não existirem usuários na sessão, criamos os iniciais
-        if (!isset($_SESSION['usuarios'])) {
-            $_SESSION['usuarios'] = [
-                1 => ['id' => 1, 'nome' => 'João Silva', 'email' => 'user@test.com', 'role' => 'user'],
-                2 => ['id' => 2, 'nome' => 'Maria Souza', 'email' => 'maria@test.com', 'role' => 'user'],
-                3 => ['id' => 3, 'nome' => 'Mateus Admin', 'email' => 'admin@test.com', 'role' => 'admin'],
-                4 => ['id' => 4, 'nome' => 'Vitor Admin', 'email' => 'vitor@admin.com', 'role' => 'admin'],
-            ];
-        }
+        $this->pdo = Database::connect();
     }
 
-    // Retorna todos os usuários
+    // Criar usuário
+    public function create($nome, $email, $senha, $role) {
+
+        $hash = password_hash($senha, PASSWORD_DEFAULT);
+
+        $stmt = $this->pdo->prepare("
+         INSERT INTO users (nome, email, senha, role)
+        VALUES (?, ?, ?, ?)
+        ");
+
+        return $stmt->execute([
+            $nome,
+            $email,
+            $hash,
+            $role
+        ]);
+    }
+
+    // Buscar por email
+    public function findByEmail($email) {
+
+        $stmt = $this->pdo->prepare("
+            SELECT * FROM users
+            WHERE email = ?
+            LIMIT 1
+        ");
+
+        $stmt->execute([$email]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Listar todos
     public function all() {
-        return $_SESSION['usuarios'];
+
+        $stmt = $this->pdo->query("
+            SELECT id, nome, email, role
+            FROM users
+        ");
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Filtra usuários por tipo (user ou admin)
+    // Buscar por role
     public function getByRole($role) {
-        return array_filter($_SESSION['usuarios'], fn($u) => $u['role'] === $role);
+
+    $stmt = $this->pdo->prepare("
+        SELECT *
+        FROM users
+        WHERE role = ?
+        ORDER BY nome ASC
+    ");
+
+    $stmt->execute([$role]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Deleta um usuário da sessão
+    // Deletar
     public function delete($id) {
-        if (isset($_SESSION['usuarios'][$id])) {
-            unset($_SESSION['usuarios'][$id]);
-            return true;
-        }
-        return false;
+
+    $stmt = $this->pdo->prepare("
+        DELETE FROM users
+        WHERE id = ?
+    ");
+
+    return $stmt->execute([$id]);
     }
 
-    // Promove ou remove privilégios de Admin
+    // Trocar cargo
     public function updateRole($id, $newRole) {
-        if (isset($_SESSION['usuarios'][$id])) {
-            $_SESSION['usuarios'][$id]['role'] = $newRole;
-            return true;
-        }
-        return false;
+
+    $stmt = $this->pdo->prepare("
+        UPDATE users
+        SET role = ?
+        WHERE id = ?
+    ");
+
+    return $stmt->execute([
+        $newRole,
+        $id
+    ]);
+    }
+
+    public function findById($id) {
+
+    $stmt = $this->pdo->prepare("
+        SELECT *
+        FROM users
+        WHERE id = ?
+        LIMIT 1
+    ");
+
+    $stmt->execute([$id]);
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updatePassword($id, $newPassword) {
+
+    $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+
+    $stmt = $this->pdo->prepare("
+        UPDATE users
+        SET senha = ?
+        WHERE id = ?
+    ");
+
+    return $stmt->execute([
+        $hash,
+        $id
+    ]);
     }
 }

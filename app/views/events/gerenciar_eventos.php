@@ -4,15 +4,15 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['user']) || $_SESSION['type'] !== 'admin') {
-    header("Location: /app/views/auth/login.php");
+    header("Location: /login");
     exit;
 }
 
 require_once __DIR__ . '/../../models/EventModel.php';
-$model = new EventModel();
-$eventos = $model->all(); 
+$model   = new EventModel();
+$eventos = $model->all();
 
-require_once __DIR__ . '/../partials/header.php'; 
+require_once __DIR__ . '/../partials/header.php';
 ?>
 
 <div class="layout">
@@ -48,10 +48,10 @@ require_once __DIR__ . '/../partials/header.php';
                                 <td><?= date('d/m/Y', strtotime($evento['data'])) ?></td>
                                 <td><?= $evento['local'] ?></td>
                                 <td class="actions-cell">
-                                    <a href="/index.php?page=editar-evento&id=<?= $evento['id'] ?>" class="btn-edit-table">Editar</a>
-                                    <a href="/index.php?action=destroy&id=<?= $evento['id'] ?>" 
-                                        class="btn-delete-table" 
-                                        onclick="return confirm('Tem certeza que deseja excluir este evento?')">
+                                    <a href="/eventos/<?= $evento['id'] ?>/editar" class="btn-edit-table">Editar</a>
+                                    <a href="/eventos/<?= $evento['id'] ?>/deletar"
+                                       class="btn-delete-table"
+                                       onclick="return confirm('Tem certeza que deseja excluir este evento?')">
                                         Excluir
                                     </a>
                                 </td>

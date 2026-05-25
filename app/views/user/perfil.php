@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once __DIR__ . '/../partials/header.php';
 
 $email = $_SESSION['user'] ?? '';
-$type = $_SESSION['type'] ?? '';
+$type  = $_SESSION['type'] ?? '';
 ?>
 
 <div class="layout">
@@ -23,7 +23,7 @@ $type = $_SESSION['type'] ?? '';
 
                 <h2 class="form-title">Editar Senha</h2>
 
-                <form action="/public/index.php?action=update-profile" method="POST">
+                <form action="/perfil/atualizar" method="POST">
 
                     <!-- INFO -->
                     <div class="form-group">
@@ -54,7 +54,6 @@ $type = $_SESSION['type'] ?? '';
                         </div>
                     </div>
 
-                    <!-- 🔥 MENSAGENS AGORA NO LUGAR CERTO -->
                     <?php if (isset($_GET['error'])): ?>
                         <div class="error-msg">
                             <?php
@@ -71,9 +70,18 @@ $type = $_SESSION['type'] ?? '';
                         </div>
                     <?php endif; ?>
 
-                    <!-- BOTÃO -->
+                    <!-- BOTÕES -->
                     <div class="form-actions">
-                        <button type="submit" class="btn-primary">Salvar Alterações</button>
+
+                        <button type="submit" class="btn-primary">
+                            Salvar Alterações
+                        </button>
+
+                        <a href="/conta/deletar"
+                           class="btn-delete-account"
+                           onclick="return confirm('Tem certeza que deseja excluir sua conta? Essa ação não pode ser desfeita.')">
+                            Excluir Conta
+                        </a>
                     </div>
 
                 </form>

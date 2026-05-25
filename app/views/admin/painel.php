@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['user']) || $_SESSION['type'] !== 'admin') {
-    header("Location: /app/views/auth/login.php");
+    header("Location: /login");
     exit;
 }
 
@@ -15,13 +15,13 @@ $userModel = new UserModel();
 $users  = $userModel->getByRole('user');
 $admins = $userModel->getByRole('admin');
 
-require_once __DIR__ . '/../partials/header.php'; 
+require_once __DIR__ . '/../partials/header.php';
 ?>
 
 <div class="layout">
     <?php require_once __DIR__ . '/../partials/navbar.php'; ?>
 
-    <main class="content">   
+    <main class="content">
 
         <header class="content-header">
             <h1>Painel de Controle Administrativo</h1>
@@ -29,11 +29,11 @@ require_once __DIR__ . '/../partials/header.php';
         </header>
 
         <div class="admin-columns-container">
-            
-            <!--lista/coluna de usuarios-->
+
+            <!-- lista/coluna de usuarios -->
             <div class="admin-column">
                 <h2>
-                    Usuários Comuns 
+                    Usuários Comuns
                     <span class="badge-count"><?= count($users) ?></span>
                 </h2>
                 <table class="admin-table">
@@ -46,29 +46,30 @@ require_once __DIR__ . '/../partials/header.php';
                     </thead>
                     <tbody>
                         <?php foreach ($users as $u): ?>
-                        <tr>
-                            <td><?= $u['nome'] ?></td>
-                            <td><?= $u['email'] ?></td>
-                            <td class="actions-cell">
-                                <!--torna o usuario em adm -->
-                               <a href="/index.php?action=change-role&id=<?= $u['id'] ?>&role=admin" 
-                                class="btn-edit-table" title="Tornar Admin">💎</a>
-                                
-                                <!--exclui usuario -->
-                                <a href="/index.php?action=delete-user&id=<?= $u['id'] ?>" 
-                                class="btn-delete-table" title="Excluir"
-                                onclick="return confirm('Deseja excluir este usuário?')">❌</a>
-                            </td>
-                        </tr>
+                            <?php if ($u['email'] === $_SESSION['user']) continue; ?>
+                            <tr>
+                                <td><?= $u['nome'] ?></td>
+                                <td><?= $u['email'] ?></td>
+                                <td class="actions-cell">
+                                    <!-- torna o usuario em adm -->
+                                    <a href="/admin/usuarios/<?= $u['id'] ?>/cargo?role=admin"
+                                       class="btn-edit-table" title="Tornar Admin">💎</a>
+
+                                    <!-- exclui usuario -->
+                                    <a href="/admin/usuarios/<?= $u['id'] ?>/deletar"
+                                       class="btn-delete-table" title="Excluir"
+                                       onclick="return confirm('Deseja excluir este usuário?')">❌</a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
 
-            <!--lista/coluna de adms-->
+            <!-- lista/coluna de adms -->
             <div class="admin-column">
                 <h2>
-                    Administradores 
+                    Administradores
                     <span class="badge-count"><?= count($admins) ?></span>
                 </h2>
                 <table class="admin-table">
@@ -81,20 +82,21 @@ require_once __DIR__ . '/../partials/header.php';
                     </thead>
                     <tbody>
                         <?php foreach ($admins as $a): ?>
-                        <tr>
-                            <td><?= $a['nome'] ?></td>
-                            <td><?= $a['email'] ?></td>
-                            <td class="actions-cell">
-                                <!-- tira o privilégio de adm-->
-                                <a href="/index.php?action=change-role&id=<?= $a['id'] ?>&role=user" 
-                                class="btn-edit-table" title="Remover Admin"> 🗑️ </a>
-                                
-                                <!--deleta o adm-->
-                                <a href="/index.php?action=delete-user&id=<?= $a['id'] ?>" 
-                                class="btn-delete-table" title="Excluir"
-                                onclick="return confirm('Deseja excluir este administrador?')">❌</a>
-                            </td>
-                        </tr>
+                            <?php if ($a['email'] === $_SESSION['user']) continue; ?>
+                            <tr>
+                                <td><?= $a['nome'] ?></td>
+                                <td><?= $a['email'] ?></td>
+                                <td class="actions-cell">
+                                    <!-- tira o privilégio de adm -->
+                                    <a href="/admin/usuarios/<?= $a['id'] ?>/cargo?role=user"
+                                       class="btn-edit-table" title="Remover Admin">🗑️</a>
+
+                                    <!-- deleta o adm -->
+                                    <a href="/admin/usuarios/<?= $a['id'] ?>/deletar"
+                                       class="btn-delete-table" title="Excluir"
+                                       onclick="return confirm('Deseja excluir este administrador?')">❌</a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>

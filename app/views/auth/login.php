@@ -1,5 +1,4 @@
 <?php
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -60,7 +59,7 @@ include __DIR__ . '/../partials/header.php';
         <h2>Login</h2>
 
         <p style="text-align:center; margin-top:10px;">
-        Não tem conta? <a href="/public/index.php?page=cadastro">Cadastre-se</a>
+            Não tem conta? <a href="/cadastro">Cadastre-se</a>
         </p>
 
         <?php if (isset($_GET['error'])): ?>
@@ -69,13 +68,7 @@ include __DIR__ . '/../partials/header.php';
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/public/index.php?action=login">
-
-            <label>Tipo de Login</label>
-            <select name="type" required>
-                <option value="user">Usuário</option>
-                <option value="admin">Administrador</option>
-            </select>
+        <form method="POST" action="/login">
 
             <br>
 

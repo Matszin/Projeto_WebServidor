@@ -4,19 +4,23 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/../../models/EventModel.php';
-$model = new EventModel();
+require_once __DIR__ . '/../../models/UserModel.php';
+
+$model     = new EventModel();
+$userModel = new UserModel();
 
 $email = $_SESSION['user'] ?? null;
 
 if (!$email) {
-    header("Location: /public/index.php?page=login");
+    header("Location: /login");
     exit;
 }
 
-$inscricoes = $_SESSION['inscricoes'][$email] ?? [];
-?>
+$user      = $userModel->findByEmail($email);
+$inscricoes = $model->eventosInscritos($user['id']);
 
-<?php require_once __DIR__ . '/../partials/header.php'; ?>
+require_once __DIR__ . '/../partials/header.php';
+?>
 
 <div class="layout">
 
@@ -31,21 +35,17 @@ $inscricoes = $_SESSION['inscricoes'][$email] ?? [];
             <p>Você ainda não se inscreveu em nenhum evento.</p>
         <?php else: ?>
             <ul class="event-list">
-                <?php foreach ($inscricoes as $eventoId):
-                    $evento = $model->find($eventoId);
-                    if (!$evento) continue;
-                ?>
-                <li class="event-item">
-                    <strong><?= $evento['titulo'] ?></strong><br>
-                    Data: <?= date('d/m/Y H:i', strtotime($evento['data'])) ?><br>
-                    Local: <?= $evento['local'] ?><br>
-                    Tipo: <?= ucfirst($evento['tipo']) ?><br>
+                <?php foreach ($inscricoes as $evento): ?>
+                    <li class="event-item">
+                        <strong><?= $evento['titulo'] ?></strong><br>
+                        Data: <?= date('d/m/Y H:i', strtotime($evento['data'])) ?><br>
+                        Local: <?= $evento['local'] ?><br>
+                        Tipo: <?= ucfirst($evento['tipo']) ?><br>
 
-                    <a href="/public/index.php?action=cancelar&id=<?= $evento['id'] ?>" 
-                       class="btn-cancel">
-                        Cancelar inscrição
-                    </a>
-                </li>
+                        <a href="/eventos/<?= $evento['id'] ?>/cancelar" class="btn-cancel">
+                            Cancelar inscrição
+                        </a>
+                    </li>
                 <?php endforeach; ?>
             </ul>
         <?php endif; ?>

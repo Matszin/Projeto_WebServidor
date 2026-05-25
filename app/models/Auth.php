@@ -1,28 +1,32 @@
 <?php
 
+require_once __DIR__ . '/UserModel.php';
+
 class Auth {
 
-    private static $users = [
-        'user' => [
-            'email' => 'user@test.com',
-            'password' => '123'
-        ],
-        'admin' => [
-            'email' => 'admin@test.com',
-            'password' => '456'
-        ]
-    ];
+    public static function login($email, $password) {
 
-    public static function login($type, $email, $password) {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-        if (
-            isset(self::$users[$type]) &&
-            $email === self::$users[$type]['email'] &&
-            $password === self::$users[$type]['password']
-        ) {
+        $userModel = new UserModel();
+
+        $user = $userModel->findByEmail($email);
+
+        if ($user && password_verify($password, $user['senha'])) {
+
+            session_regenerate_id(true);
+
+            $_SESSION['user'] = $user['email'];
+            $_SESSION['type'] = $user['role'];
+            $_SESSION['login_time'] = time();
+
             return true;
         }
 
         return false;
     }
+
+    
 }

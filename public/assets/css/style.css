@@ -15,8 +15,8 @@ body {
 /*layout principal*/
 .layout {
     display: flex;
-    width: 100%; 
-    min-height: calc(100vh - 50px);
+    width: 100%; /* Adicione isso para garantir que ela use a tela toda */
+    min-height: calc(100vh - 50px); /* Ajuste para descontar a altura do footer se necessário */
 }
 /*menu lateral*/
 .sidebar {
@@ -590,4 +590,18 @@ body {
     border-radius: 8px;
     margin-bottom: 15px;
     text-align: center;
+}
+
+.btn-delete-account {
+    background-color: #d9534f;
+    color: rgb(0, 0, 0);
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-delete-account:hover {
+    background-color: #c9302c;
 }

@@ -1,9 +1,9 @@
-<?php 
+<?php
 require_once __DIR__ . '/../../models/EventModel.php';
-$model = new EventModel();
+$model   = new EventModel();
 $eventos = $model->all();
 
-require_once __DIR__ . '/../partials/header.php'; 
+require_once __DIR__ . '/../partials/header.php';
 ?>
 
 <div class="layout">
@@ -20,13 +20,13 @@ require_once __DIR__ . '/../partials/header.php';
                         <h3><?= $evento['titulo'] ?></h3>
                         <p><strong>Data:</strong> <?= date('d/m/Y H:i', strtotime($evento['data'])) ?></p>
                         <p><strong>Local:</strong> <?= $evento['local'] ?></p>
-                        
+
                         <span class="badge-tipo">
                             <?= $evento['tipo'] ?>
                         </span>
-                        
+
                         <div class="event-card-footer">
-                            <a href="/index.php?page=detalhes-evento&id=<?= $evento['id'] ?>" class="btn-details">Ver detalhes →</a>
+                            <a href="/eventos/<?= $evento['id'] ?>/detalhes" class="btn-details">Ver detalhes →</a>
                         </div>
                     </div>
                 </div>
@@ -34,6 +34,5 @@ require_once __DIR__ . '/../partials/header.php';
         </div>
     </main>
 </div>
-
 
 <?php require_once __DIR__ . '/../partials/footer.php'; ?>

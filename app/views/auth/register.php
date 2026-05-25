@@ -32,13 +32,16 @@ include __DIR__ . '/../partials/header.php';
             <div class="success-msg">Cadastro realizado com sucesso!</div>
         <?php endif; ?>
 
-        <form method="POST" action="/public/index.php?action=register">
+        <form method="POST" action="/cadastro">
 
             <label>Tipo de Conta</label>
             <select name="type" required>
                 <option value="user">Usuário</option>
                 <option value="admin">Administrador</option>
             </select>
+
+            <label>Nome</label>
+            <input type="text" name="nome" required>
 
             <label>Email</label>
             <input type="text" name="email" required>
@@ -53,7 +56,7 @@ include __DIR__ . '/../partials/header.php';
         </form>
 
         <p style="text-align:center; margin-top:10px;">
-            Já tem conta? <a href="/app/views/auth/login.php">Login</a>
+            Já tem conta? <a href="/login">Login</a>
         </p>
 
     </div>

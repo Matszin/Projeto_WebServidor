@@ -1,7 +1,4 @@
-# Projeto_WebServidor
-Projeto desenvolvido para matéria de web servidor
-
-#  EventHub — Plataforma de Gestão de Eventos
+# EventHub — Plataforma de Gestão de Eventos
 
 ![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?style=flat&logo=php&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Em%20desenvolvimento-yellow?style=flat)
@@ -10,26 +7,24 @@ Projeto desenvolvido para matéria de web servidor
 
 ---
 
-##  Integrantes
+## Integrantes
 
 | Nome                        | Responsabilidades |
 |-----------------------------|-------------------|
-| **Mateus Nogari Teixeira**  | Criar/editar evento, painel do organizador, painel do admin |
-| **Vitor de Anhaia Polski**  | Login e cadastro de conta, perfil do participante, home/listagem de eventos, página do evento |
-
-
+| **Mateus Nogari Teixeira**  | Criar/editar evento, painel do organizador, painel do admin, home/listagem de eventos |
+| **Vitor de Anhaia Polski**  | Login e cadastro de conta, perfil do participante, página do evento |
 
 ---
 
-##  Sobre o Projeto
+## Sobre o Projeto
 
 O **EventHub** é uma aplicação web desenvolvida como projeto prático da disciplina de Servidor Web, utilizando PHP 8+ sem frameworks, seguindo o padrão MVC.
 
-A plataforma permite que qualquer usuário se inscreva em eventos criados. O sistema conta com dois perfis de acesso — **Admin** e **Participante** 
+A plataforma permite que qualquer usuário se inscreva em eventos criados. O sistema conta com dois perfis de acesso — **Admin** e **Participante**.
 
 ---
 
-##  Funcionalidades
+## Funcionalidades
 
 - Autenticação com dois níveis de acesso: Admin e Participante
 - Cadastro e edição de perfil (atualização de senhas)
@@ -37,14 +32,118 @@ A plataforma permite que qualquer usuário se inscreva em eventos criados. O sis
 - Listagem de eventos
 - Inscrição em eventos
 - Painel do admin: visão geral de todos os usuários
-- Conceder ou tirar privilégios
-- Excluir usuarios
+- Conceder ou retirar privilégios de admin
+- Excluir usuários
 
+---
+
+## Requisitos de Instalação
+
+- PHP 8.0 ou superior
+- Extensão `pdo_mysql` habilitada no PHP
+- MySQL 5.7+ ou MariaDB 10.3+
+- Composer 2.x
+- Servidor web Apache (ou servidor embutido do PHP para desenvolvimento)
+
+---
+
+## Instalação e Configuração
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/Matszin/Projeto_WebServidor.git
+cd Projeto_WebServidor
 ```
 
- Estrutura de Pastas
+### 2. Instalar as dependências via Composer
+
+Primeiramente baixar o composer
+
+```bash
+Rodar no terminal: composer install
+```
+
+### 3. Configurar as variáveis de ambiente
+
+Copie o arquivo de exemplo e preencha com os dados do seu ambiente:
+
+```bash
+cp .env.example .env
+```
+
+Abra o arquivo `.env` e edite:
+
+```ini
+DB_HOST=localhost       # host do banco de dados
+DB_NAME=eventos         # nome do banco de dados
+DB_USER=root            # usuário do MySQL
+DB_PASS=                # senha do MySQL
+```
+
+### 4. Criar o banco de dados
+
+Acesse seu MySQL/MariaDB e execute o SQL abaixo:
+ também há o arquivo database.sql
+
+```sql
+CREATE DATABASE IF NOT EXISTS eventos CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE eventos;
+
+CREATE TABLE users (
+    id       INT AUTO_INCREMENT PRIMARY KEY,
+    nome     VARCHAR(100)        NOT NULL,
+    email    VARCHAR(150)        NOT NULL UNIQUE,
+    senha    VARCHAR(255)        NOT NULL,
+    role     ENUM('admin','participante') NOT NULL DEFAULT 'participante',
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE eventos (
+    id        INT AUTO_INCREMENT PRIMARY KEY,
+    titulo    VARCHAR(200)  NOT NULL,
+    data      DATE          NOT NULL,
+    tipo      VARCHAR(100)  NOT NULL,
+    local     VARCHAR(200)  NOT NULL,
+    descricao TEXT,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE inscricoes (
+    id        INT AUTO_INCREMENT PRIMARY KEY,
+    user_id   INT NOT NULL,
+    evento_id INT NOT NULL,
+    inscrito_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_inscricao (user_id, evento_id),
+    FOREIGN KEY (user_id)   REFERENCES users(id)   ON DELETE CASCADE,
+    FOREIGN KEY (evento_id) REFERENCES eventos(id) ON DELETE CASCADE
+);
+```
+
+Ou cadastre pelo sistema e altere o `role` via painel admin após o primeiro login.
+
+### 5. Rodar o projeto
+
+**Com servidor embutido do PHP:**
+
+```bash
+php -S localhost:8000 -t public
+```
+
+Acesse `http://localhost:8000` no navegador.
+
+**Com Apache:** configure o `DocumentRoot` para a pasta `public/` do projeto.
+
+---
+
+## Estrutura de Pastas
+
+```
 /eventhub
   /app
+    /config
+      database.php        ← configuração do banco (lê do .env)
     /controllers
       EventController.php
       UserController.php
@@ -71,52 +170,26 @@ A plataforma permite que qualquer usuário se inscreva em eventos criados. O sis
         footer.php
       /user
         perfil.php
-  /config  
-  /public         
-    index.php
+  /public
+    index.php             ← front controller (roteador)
     /assets
-      /css
-        style.css
-      /js
-        main.js
-
+      /css / /js
+  /vendor                 ← gerado pelo Composer (não versionar)
+  .env                    ← variáveis de ambiente (não versionar)
+  .env.example            ← modelo para o .env (versionar)
+  composer.json
 ```
 
-##  Telas do Sistema
+---
+
+## Telas do Sistema
 
 | # | Tela                       | Quem acessa                |
 |---|----------------------------|----------------------------|
 | 1 | Login                      | Todos                      |
 | 2 | Cadastro de conta          | Todos                      |
-| 3 | Perfil do participante     | Todos                      |
-| 4 | Home / Listagem de eventos | Todos                      |
-| 5 | Página do evento           | Todos                      |
+| 3 | Perfil do participante     | Todos logados              |
+| 4 | Home / Listagem de eventos | Todos logados              |
+| 5 | Página do evento           | Todos logados              |
 | 6 | Criar / Editar evento      | Admin                      |
 | 7 | Painel do admin            | Admin                      |
-
----
-## Instalação e Configuração
-
-### Requisitos
-
-- PHP 8+
-- Servidor web (Apache)
-- MySQL / MariaDB *(Trabalho 2)*
-
-### Como rodar localmente
-
-```bash
-# Clone o repositório
-git clone https://github.com/Matszin/Projeto_WebServidor.git
-
-# Acesse a pasta do projeto
-cd Projeto_WebServidor
-
-# Inicie o servidor embutido do PHP
-
-php -S localhost:8000 -t public
-```
-
-> Acesse `http://localhost:8000` no navegador.
-
----
