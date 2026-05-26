@@ -91,13 +91,13 @@ CREATE DATABASE IF NOT EXISTS eventos CHARACTER SET utf8mb4 COLLATE utf8mb4_unic
 
 USE eventos;
 
-CREATE TABLE users (
-    id       INT AUTO_INCREMENT PRIMARY KEY,
-    nome     VARCHAR(100)        NOT NULL,
-    email    VARCHAR(150)        NOT NULL UNIQUE,
-    senha    VARCHAR(255)        NOT NULL,
-    role     ENUM('admin','participante') NOT NULL DEFAULT 'participante',
-    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `role` enum('user','admin') DEFAULT 'user',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 );
 
 CREATE TABLE eventos (
@@ -121,7 +121,6 @@ CREATE TABLE inscricoes (
 );
 ```
 
-Ou cadastre pelo sistema e altere o `role` via painel admin após o primeiro login.
 
 ### 5. Rodar o projeto
 

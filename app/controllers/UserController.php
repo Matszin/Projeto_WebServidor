@@ -8,25 +8,30 @@ class UserController {
         $this->model = new UserModel();
     }
 
-    //funcao para excluir usuario
+    // Funcao para excluir usuario
     public function destroy() {
-        $id = $_GET['id'] ?? null;
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        preg_match('#^/admin/usuarios/(\d+)/deletar$#', $uri, $m);
+        $id = $m[1] ?? null;
+
         if ($id) {
             $this->model->delete($id);
         }
-        header("Location: /index.php?page=admin");
+        header("Location: /admin");
         exit;
     }
 
-    //funcao para mudar o cargo
+    // Funcao para mudar o cargo
     public function changeRole() {
-        $id = $_GET['id'] ?? null;
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        preg_match('#^/admin/usuarios/(\d+)/cargo$#', $uri, $m);
+        $id   = $m[1] ?? null;
         $role = $_GET['role'] ?? 'user';
-        
+
         if ($id) {
             $this->model->updateRole($id, $role);
         }
-        header("Location: /index.php?page=admin");
+        header("Location: /admin");
         exit;
     }
 }
