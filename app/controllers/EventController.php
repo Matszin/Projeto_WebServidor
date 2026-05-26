@@ -45,14 +45,21 @@ class EventController {
         exit;
         
     }
-    public function destroy(){
-        $id = $_GET["id"] ?? null;
+    //função para excluir eventos
+    public function destroy() {
+    //pega url
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    
+    // pega o id
+    preg_match('#^/eventos/(\d+)/deletar$#', $uri, $m);
+    $id = $m[1] ?? null;
 
-            if($id != null){
-                $this->model->delete($id);
-            }
-            //manda para o home
-            header("Location: /index.php?page=home");
-        exit;
+    if ($id != null) {
+        $this->model->delete($id);
     }
+    
+    header("Location: /eventos/gerenciar");
+    exit;
+}
+
 }
